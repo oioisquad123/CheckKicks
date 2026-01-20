@@ -1,8 +1,8 @@
 # CheckKicks - Task Summary & Roadmap
 
-**Last Updated:** January 17, 2026
-**App Status:** TestFlight live, preparing for App Store submission
-**Progress:** 30/35 tasks complete (86%)
+**Last Updated:** January 19, 2026
+**App Status:** TestFlight live, App Store submission in progress
+**Progress:** 33/35 tasks complete (94%)
 
 ---
 
@@ -16,7 +16,7 @@
 | Phase 1D: Monetization | ✅ Complete | 5/5 |
 | Phase 1E: TestFlight Distribution | ✅ Complete | 2/2 |
 | Phase 1F: Polish | ⏳ Pending | 0/3 |
-| Phase 2: Launch | 🔄 In Progress | 3/5 |
+| Phase 2: Launch | 🔄 In Progress | 6/8 |
 
 ---
 
@@ -124,12 +124,19 @@
 | **27.5** | **Terms of Service & Privacy Policy** | ✅ Created (`/docs/`) |
 | **NEW** | **Privacy Manifest (PrivacyInfo.xcprivacy)** | ✅ Created |
 | **NEW** | **GitHub Pages HTML files** | ✅ Created (`/docs/github-pages/`) |
+| **NEW** | **Host legal docs on GitHub Pages** | ✅ Live (Jan 19) |
+| **NEW** | **Create demo account for reviewers** | ✅ Created (Jan 19) |
+| **NEW** | **Security audit & key rotation** | ✅ Complete (Jan 19) |
 | 25 | Push notifications | ⏳ Optional |
-| - | Host legal docs on GitHub Pages | ⏳ Manual step |
 | - | App Store screenshots | ⏳ Manual step |
 | - | Configure App Store metadata | ⏳ Manual step |
-| - | Create demo account for reviewers | ⏳ Manual step |
 | **27** | **App Store Submission** | ⏳ Final Step |
+
+**Completed Jan 19, 2026:**
+- ✅ Demo account: `demo@checkkicks.app` / `CheckKicks2026Demo!`
+- ✅ GitHub Pages live: https://oioisquad123.github.io/CheckKicks/github-pages/
+- ✅ Supabase API keys rotated for security
+- ✅ Fresh public repo created (clean git history)
 
 **Files Created for App Store:**
 - `Auntentic_AI/Auntentic_AI/PrivacyInfo.xcprivacy` - Privacy Manifest
@@ -141,40 +148,33 @@
 
 ## What to Do Now
 
-### ✅ Completed: Legal Documents (Jan 17, 2026)
+### ✅ Completed: Security & Pre-Submission (Jan 19, 2026)
 
-- ✅ `/docs/PRIVACY_POLICY.md` - Privacy policy for App Store
-- ✅ `/docs/TERMS_OF_SERVICE.md` - Terms of service for App Store
+- ✅ Demo account created: `demo@checkkicks.app` / `CheckKicks2026Demo!`
+- ✅ Supabase API keys rotated (new publishable key format)
+- ✅ Fresh public GitHub repo created (no secrets in history)
+- ✅ GitHub Pages live with legal documents
 
-### 🔄 In Progress: TestFlight Distribution (Phase 1E)
+**Live URLs:**
+- Privacy: https://oioisquad123.github.io/CheckKicks/github-pages/privacy.html
+- Terms: https://oioisquad123.github.io/CheckKicks/github-pages/terms.html
+- Support: https://oioisquad123.github.io/CheckKicks/github-pages/index.html
 
-**Step 1: Re-upload Build (Xcode)**
-Current build is missing the app icon. Need to upload fresh:
-1. Open Xcode → `Auntentic_AI.xcodeproj`
-2. Select **Product → Destination → Any iOS Device**
-3. Select **Product → Archive**
-4. In Organizer, click **Distribute App → App Store Connect → Upload**
-5. Wait 5-15 minutes for processing
+### 🔄 In Progress: App Store Submission
 
-**Step 2: Complete TestFlight Setup (App Store Connect)**
-1. Go to App Store Connect → CheckKicks → TestFlight
-2. Click on new build, answer Export Compliance (Yes → Exempt with HTTPS)
-3. Add Test Information (beta description, feedback email)
-4. Create "Core Team" internal tester group
-5. Add 2-5 testers by Apple ID
-6. Enable build for testing
+**Remaining Manual Steps in App Store Connect:**
+1. Fill Version 1.0 localizations (description, keywords, support URL)
+2. Set App Information (copyright, privacy policy URL)
+3. Complete Age Rating questionnaire
+4. Upload screenshots (use AppMockup.io)
+5. Select Build 2
+6. Fill App Review Information (contact + demo account)
+7. Submit for review
 
-**Step 3: Test via TestFlight**
-1. Testers receive email invitation
-2. Download TestFlight app from App Store
-3. Accept invitation and install CheckKicks
-4. Test all features (auth, photos, AI, purchases)
-
-### Next: Host Legal Documents
-
-Before App Store submission, host legal docs at:
-- https://checkkicks.app/privacy
-- https://checkkicks.app/terms
+**App Store Connect IDs:**
+- App ID: `6757280473`
+- Version ID: `743c3230-e7ae-41dd-be8f-51c302e48390`
+- Build 2 ID: `181937ba-d0c6-4ea8-9c86-c3d299dcc90a`
 
 ---
 
@@ -244,6 +244,9 @@ Before App Store submission, host legal docs at:
 - **Jan 17, 2026:** Privacy Policy & Terms of Service created
 - **Jan 17, 2026:** Google Sign-In & cellular upload fixes
 - **Jan 17, 2026:** TestFlight distribution live (Phase 1E complete)
+- **Jan 19, 2026:** Security audit & API key rotation
+- **Jan 19, 2026:** Demo account created for Apple reviewers
+- **Jan 19, 2026:** Fresh public repo & GitHub Pages live
 - **TBD:** App Store launch
 
 ---
