@@ -1,0 +1,157 @@
+{
+	"meta": {
+		"generatedAt": "2025-12-25T23:28:29.919Z",
+		"tasksAnalyzed": 18,
+		"totalTasks": 18,
+		"analysisCount": 18,
+		"thresholdScore": 5,
+		"projectName": "Task Master",
+		"usedResearch": true
+	},
+	"complexityAnalysis": [
+		{
+			"taskId": 1,
+			"taskTitle": "Create Xcode project and integrate Supabase Swift SDK",
+			"complexityScore": 3,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Break down into: 1) Update existing project deployment target from iOS 26.2 to iOS 17.0+, 2) Remove SwiftData template code and replace with clean SwiftUI structure, 3) Add Supabase Swift SDK via SPM from version 2.0.0, 4) Configure Info.plist with NSCameraUsageDescription and NSPhotoLibraryUsageDescription permissions. Verify SDK imports successfully and project builds.",
+			"reasoning": "Xcode project already exists at Auntentic_AI/ but requires configuration changes. Current project targets iOS 26.2 (should be 17.0+), uses SwiftData template (needs removal), and lacks camera/photo permissions in Info.plist. Supabase SDK not yet integrated - packageProductDependencies array is empty in project.pbxproj. Low-medium complexity as foundation exists but needs SDK integration and permission configuration."
+		},
+		{
+			"taskId": 2,
+			"taskTitle": "Configure Supabase project with Auth, Storage, Database, and Edge Functions",
+			"complexityScore": 4,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Break down into: 1) Create new Supabase project in dashboard and note project URL/anon key, 2) Enable Auth providers (Apple Sign-In requires App ID configuration, Email/Password), 3) Create Storage bucket 'sneaker-images' with public=false, 4) Create placeholder Edge Function 'authenticate-sneaker' (full implementation in task 10), 5) Add OPENAI_API_KEY to Edge Function secrets and configure environment variables.",
+			"reasoning": "Pure infrastructure/configuration task requiring no iOS code. Involves Supabase dashboard operations: project creation, auth provider setup (Apple Sign-In needs Apple Developer configuration), storage bucket creation, and secrets management. Medium complexity due to multiple interconnected services and Apple Sign-In configuration requirements. No existing Supabase configuration found in codebase."
+		},
+		{
+			"taskId": 3,
+			"taskTitle": "Implement Supabase database schema with RLS policies",
+			"complexityScore": 4,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Break down into: 1) Create authentications table with all columns (id, user_id, verdict, confidence, observations JSONB, image_urls array, sneaker_model) and foreign key to auth.users, 2) Create subscriptions table with status CHECK constraint and expires_at, 3) Create free_checks table with user_id primary key and checks_used counter, 4) Implement RLS policies for each table ensuring user_id = auth.uid() for all operations. Test policies with anon vs authenticated users.",
+			"reasoning": "Database design task requiring SQL schema and security policies. PRD provides exact schema (3 tables with specific columns), but RLS policies need careful implementation to ensure proper user isolation. No existing database schema in codebase. Medium complexity due to RLS policy logic and testing requirements across multiple user scenarios."
+		},
+		{
+			"taskId": 4,
+			"taskTitle": "Set up Supabase Storage bucket with RLS for user images",
+			"complexityScore": 2,
+			"recommendedSubtasks": 0,
+			"expansionPrompt": "Single task: Create 'sneaker-images' bucket with public=false, implement storage RLS policies for INSERT/SELECT/UPDATE operations checking auth.uid() matches owner path segment. Test upload/download with authenticated vs unauthenticated users.",
+			"reasoning": "Straightforward Supabase Storage configuration. Simple bucket creation with standard RLS pattern (owner-based access). Overlaps partially with task 2 bucket creation - primarily adds RLS policies. Low complexity, no subtasks needed as this is a focused configuration task."
+		},
+		{
+			"taskId": 5,
+			"taskTitle": "Create MVVM folder structure and basic navigation",
+			"complexityScore": 5,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Break down into: 1) Create folder structure (Views/, ViewModels/, Services/, Models/) in Xcode project navigator, 2) Remove SwiftData Item.swift model and ModelContainer setup from Auntentic_AIApp.swift, 3) Create base @Observable AppState/Router for navigation state management, 4) Implement SplashView, AuthView placeholder, and HomeView placeholder screens, 5) Set up NavigationStack with programmatic navigation path from Splash -> Auth -> Home flow, replacing current NavigationSplitView.",
+			"reasoning": "Requires restructuring existing template. Current ContentView.swift uses NavigationSplitView with SwiftData - needs complete replacement with NavigationStack and MVVM pattern. No existing folder structure (Views/, ViewModels/, Services/, Models/ folders don't exist). Medium-high complexity due to architectural decisions on navigation state management and @Observable pattern setup."
+		},
+		{
+			"taskId": 6,
+			"taskTitle": "Implement AuthenticationService with Apple Sign-In and Email",
+			"complexityScore": 7,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Break down into: 1) Create AuthenticationService class with SupabaseClient initialization (project URL, anon key), 2) Implement signInWithApple() using ASAuthorizationAppleIDProvider and handling ASAuthorizationAppleIDCredential, 3) Implement signInWithEmail(email:password:) and signUp methods, 4) Create session management with getSession(), session persistence, and auto-refresh, 5) Implement signOut() with local data clearing, 6) Add error handling with os.Logger and user-facing error states.",
+			"reasoning": "Complex authentication implementation requiring Apple Sign-In (ASAuthorizationController, credential handling) and Supabase Auth integration. Apple Sign-In involves delegate pattern, nonce generation, and ID token exchange with Supabase. Session persistence requires secure storage. High complexity due to multiple auth methods, Apple framework integration, and security considerations. No existing auth code in codebase."
+		},
+		{
+			"taskId": 7,
+			"taskTitle": "Build 4-step photo capture wizard with guidance overlays",
+			"complexityScore": 7,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Break down into: 1) Create CaptureStep enum (outerSide, innerSide, sizeTag, boxLabel) with guidance image names and instructions, 2) Build UIImagePickerController wrapper as UIViewControllerRepresentable, 3) Create CaptureWizardView with TabView or PageView for step navigation, 4) Design and implement semi-transparent guidance overlay views for each step, 5) Add progress indicator ('Step X of 4') and step-specific instructions, 6) Create PhotoCaptureViewModel with @State for capturedImages: [UIImage?] and step management logic.",
+			"reasoning": "Multi-step UI flow requiring UIKit bridge (UIImagePickerController) and custom overlays. Involves UIViewControllerRepresentable pattern, overlay positioning/transparency, state management across 4 steps, and guidance asset creation. High complexity due to UIKit-SwiftUI bridging, custom overlay design, and multi-step state coordination. No existing camera code in codebase."
+		},
+		{
+			"taskId": 8,
+			"taskTitle": "Implement photo review screen with retake and gallery import",
+			"complexityScore": 5,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Break down into: 1) Create PhotoReviewView with 2x2 grid layout displaying 4 captured images, 2) Add per-photo retake/delete buttons that navigate back to specific capture step, 3) Implement PHPickerViewController wrapper for gallery import (iOS 14+ PHPicker), 4) Add image compression utility (JPEG 0.8 quality, max 1MB) applied before storage/upload.",
+			"reasoning": "UI component with photo management features. Requires PHPickerViewController bridge (similar pattern to UIImagePickerController), grid layout, and image compression (UIImage JPEG conversion). Medium complexity - builds on task 7 patterns but adds gallery picker and compression logic. No existing photo handling code."
+		},
+		{
+			"taskId": 9,
+			"taskTitle": "Implement image upload service to Supabase Storage",
+			"complexityScore": 6,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Break down into: 1) Create ImageUploadService with reference to SupabaseClient, 2) Implement upload method with user-specific path structure (user_{userId}/check_{uuid}/img_{i}.jpg), 3) Add upload progress tracking using Supabase upload delegate/async bytes, 4) Implement createSignedUrl() for generating secure image access URLs, 5) Create UploadProgressView with ProgressView showing 0-100% per image and overall progress.",
+			"reasoning": "Service layer implementation for Supabase Storage API. Requires understanding Supabase Swift SDK upload API, progress tracking, signed URL generation, and error handling. Medium-high complexity due to multi-file concurrent uploads, progress aggregation, and URL management. Depends on auth service for user ID."
+		},
+		{
+			"taskId": 10,
+			"taskTitle": "Deploy Supabase Edge Function authenticate-sneaker with OpenAI GPT-4o",
+			"complexityScore": 6,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Break down into: 1) Create Edge Function boilerplate with Deno/TypeScript setup (supabase/functions/authenticate-sneaker/index.ts), 2) Implement request handler receiving imageUrls array and validating input, 3) Construct OpenAI Vision API request with GPT-4o model and sneaker authentication prompt, 4) Parse OpenAI response and transform to structured output {verdict, confidence, observations, additionalPhotosNeeded?}, 5) Add error handling for API failures, rate limits, and timeout scenarios. Deploy with 'supabase functions deploy'.",
+			"reasoning": "Backend/serverless function development in TypeScript/Deno. Requires OpenAI Vision API integration, proper prompt engineering for sneaker authentication (provided in PRD), response parsing, and error handling. Medium-high complexity due to AI API integration, proper error handling, and deployment workflow. No existing Edge Functions in codebase."
+		},
+		{
+			"taskId": 11,
+			"taskTitle": "Integrate AI analysis flow with loading state",
+			"complexityScore": 5,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Break down into: 1) Create AnalysisService with supabase.functions.invoke('authenticate-sneaker') call, 2) Build AnalyzingView with full-screen spinner and 'Analyzing your sneaker...' text, 3) Implement AnalysisViewModel managing loading state, API call, and 60s timeout, 4) Add retry mechanism on failure with user-facing retry button and error display.",
+			"reasoning": "Integration layer connecting upload completion to Edge Function and UI feedback. Requires async/await with timeout handling, loading state management, and error recovery UI. Medium complexity - straightforward API call but needs proper timeout handling (Task.sleep or withThrowingTaskGroup) and user experience polish."
+		},
+		{
+			"taskId": 12,
+			"taskTitle": "Create results screen with verdict, confidence, colors, disclaimer",
+			"complexityScore": 4,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Break down into: 1) Create ResultView displaying verdict text ('Likely Authentic'/'Likely Fake'/'Inconclusive') with appropriate colors (#22C55E green, #EF4444 red, #F59E0B amber), 2) Build confidence visualization using circular progress (Circle stroke) showing 0-100%, 3) Add always-visible disclaimer text at bottom of screen, 4) Implement expandable/collapsible observations list and 'New Check' navigation button.",
+			"reasoning": "UI-focused task with specific design requirements from PRD. Requires color-coded verdict display, circular progress indicator, and expandable list. Medium complexity with clear specifications. SwiftUI components are straightforward but need attention to visual design and accessibility."
+		},
+		{
+			"taskId": 13,
+			"taskTitle": "Save authentication results to Supabase database",
+			"complexityScore": 2,
+			"recommendedSubtasks": 0,
+			"expansionPrompt": "Single task: After ResultView appears, call supabase.from('authentications').insert() with user_id (from session), verdict, confidence, observations (JSONB), and image_urls (array). RLS policies handle authorization automatically. Add error handling for insert failure.",
+			"reasoning": "Simple database insert operation using Supabase SDK. RLS policies from task 3 handle authorization. Straightforward implementation with existing SDK patterns. Low complexity, no subtasks needed."
+		},
+		{
+			"taskId": 14,
+			"taskTitle": "Integrate StoreKit 2 for $9.99/month subscription",
+			"complexityScore": 7,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Break down into: 1) Create StoreKit Configuration File (.storekit) with 'com.auntentic.monthly' product at $9.99/month, 2) Build StoreKitManager/SubscriptionService using Product.products(for:) to fetch available products, 3) Implement purchase flow with product.purchase() and handle VerificationResult, 4) Set up Transaction.updates listener for real-time transaction status changes, 5) Add entitlement checking logic to verify active subscription, 6) Configure Xcode for StoreKit testing in sandbox environment.",
+			"reasoning": "StoreKit 2 implementation with subscription product. Requires understanding of new StoreKit 2 APIs (Product, Transaction, VerificationResult), async/await patterns, and sandbox testing. High complexity due to purchase flow edge cases, receipt validation, and transaction lifecycle management. No existing StoreKit code in codebase."
+		},
+		{
+			"taskId": 15,
+			"taskTitle": "Implement free check tracking and subscription verification",
+			"complexityScore": 6,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Break down into: 1) Create CheckEligibilityService combining StoreKit entitlement check with Supabase free_checks query, 2) Implement getFreeChecksRemaining() querying free_checks table for current user, 3) Add incrementFreeCheck() to update checks_used counter after authentication, 4) Build canPerformCheck() logic: if checks_used >= 1 AND !hasActiveSubscription, return false (show paywall), 5) Integrate eligibility check into authentication flow before starting photo capture.",
+			"reasoning": "Business logic combining multiple data sources (StoreKit subscription status + Supabase free_checks table). Requires coordinating between local entitlement verification and server-side check counting. Medium-high complexity due to multiple dependencies and edge cases (subscription expired mid-session, offline handling)."
+		},
+		{
+			"taskId": 16,
+			"taskTitle": "Build paywall screen with StoreKit purchase and restore",
+			"complexityScore": 5,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Break down into: 1) Design PaywallView with value proposition text ('$9.99/month unlimited checks'), benefits list, and premium styling, 2) Add prominent purchase button triggering StoreKitManager.purchase(), 3) Implement 'Restore Purchases' button calling AppStore.sync() and checking Transaction.currentEntitlements, 4) Handle purchase success (dismiss paywall, update UI) and failure states (show error, allow retry).",
+			"reasoning": "UI screen with StoreKit integration for purchase and restore flows. Requires conversion-focused design, purchase button integration with task 14's StoreKitManager, and restore purchases implementation. Medium complexity - UI-focused but needs proper StoreKit callback handling."
+		},
+		{
+			"taskId": 17,
+			"taskTitle": "Sync subscription status to Supabase database",
+			"complexityScore": 5,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Break down into: 1) Create SubscriptionSyncService that listens to Transaction.updates stream, 2) On new/renewed transaction, upsert to Supabase subscriptions table with product_id, status='active', original_transaction_id, expires_at, 3) Handle subscription expiration by updating status to 'expired', 4) Add app launch sync to ensure database reflects current StoreKit state (handle offline purchases).",
+			"reasoning": "Backend synchronization between StoreKit transactions and Supabase database. Requires Transaction.updates async stream handling, upsert logic, and handling edge cases (expiration, renewal, offline). Medium complexity due to state synchronization across systems."
+		},
+		{
+			"taskId": 18,
+			"taskTitle": "Implement comprehensive error handling and network resilience",
+			"complexityScore": 6,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Break down into: 1) Create NetworkMonitor using NWPathMonitor to track connectivity state, 2) Implement global error handling service with os.Logger integration, 3) Add retry logic using withThrowingTaskGroup for API calls (exponential backoff), 4) Create image quality validation checking resolution/lighting before upload with retake prompts, 5) Build reusable error UI components (offline banner, retry buttons, error alerts) for consistent UX across screens.",
+			"reasoning": "Cross-cutting concern affecting multiple app areas. Requires NWPathMonitor implementation, structured error handling architecture, retry patterns with Swift concurrency, and image quality analysis (resolution/brightness heuristics). Medium-high complexity due to breadth of coverage and integration with existing services."
+		}
+	]
+}

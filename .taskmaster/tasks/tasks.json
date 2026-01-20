@@ -1,0 +1,311 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": "1",
+        "title": "Create Xcode project and integrate Supabase Swift SDK",
+        "description": "Set up new Xcode project targeting iOS 17.0+ with SwiftUI and add Supabase Swift SDK via SPM (FR-0.1, FR-0.3)",
+        "details": "Create new SwiftUI project in Xcode 16+ targeting iOS 17.0 deployment. Add Supabase Swift SDK via File > Add Package Dependencies with URL 'https://github.com/supabase/supabase-swift.git' from version 2.0.0. Configure Info.plist for camera/photo library permissions. Use @main App struct with WindowGroup.",
+        "testStrategy": "Verify project builds without errors, SDK imports successfully in test file, simulator launches with SwiftUI preview working.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "done",
+        "subtasks": [],
+        "complexity": 3,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Break down into: 1) Update existing project deployment target from iOS 26.2 to iOS 17.0+, 2) Remove SwiftData template code and replace with clean SwiftUI structure, 3) Add Supabase Swift SDK via SPM from version 2.0.0, 4) Configure Info.plist with NSCameraUsageDescription and NSPhotoLibraryUsageDescription permissions. Verify SDK imports successfully and project builds.",
+        "updatedAt": "2025-12-25T23:46:38.295Z"
+      },
+      {
+        "id": "2",
+        "title": "Configure Supabase project with Auth, Storage, Database, and Edge Functions",
+        "description": "Create and configure Supabase project infrastructure (FR-0.2)",
+        "details": "Create new Supabase project in dashboard. Enable Auth with Apple Sign-In and Email providers. Create Storage bucket 'sneaker-images' with RLS. Deploy Edge Function 'authenticate-sneaker' with provided Deno code. Set OPENAI_API_KEY secret. Use anon key in app.",
+        "testStrategy": "Verify Supabase dashboard shows project active, Auth providers enabled, Storage bucket exists, Edge Function deploys successfully.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "done",
+        "subtasks": [],
+        "complexity": 4,
+        "recommendedSubtasks": 5,
+        "expansionPrompt": "Break down into: 1) Create new Supabase project in dashboard and note project URL/anon key, 2) Enable Auth providers (Apple Sign-In requires App ID configuration, Email/Password), 3) Create Storage bucket 'sneaker-images' with public=false, 4) Create placeholder Edge Function 'authenticate-sneaker' (full implementation in task 10), 5) Add OPENAI_API_KEY to Edge Function secrets and configure environment variables."
+      },
+      {
+        "id": "3",
+        "title": "Implement Supabase database schema with RLS policies",
+        "description": "Create PostgreSQL tables for authentications, subscriptions, free_checks with exact RLS policies from PRD (FR-0.4)",
+        "details": "Run provided SQL schema in Supabase SQL Editor: authentications, subscriptions, free_checks tables with all CHECK constraints, RLS policies exactly as specified. Verify foreign keys to auth.users.",
+        "testStrategy": "Query tables via Supabase dashboard as anon user (should fail), test RLS policies work for authenticated users.",
+        "priority": "high",
+        "dependencies": [
+          "2"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "complexity": 4,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Break down into: 1) Create authentications table with all columns (id, user_id, verdict, confidence, observations JSONB, image_urls array, sneaker_model) and foreign key to auth.users, 2) Create subscriptions table with status CHECK constraint and expires_at, 3) Create free_checks table with user_id primary key and checks_used counter, 4) Implement RLS policies for each table ensuring user_id = auth.uid() for all operations. Test policies with anon vs authenticated users."
+      },
+      {
+        "id": "4",
+        "title": "Set up Supabase Storage bucket with RLS for user images",
+        "description": "Configure user-specific image storage with secure RLS policies (FR-0.5)",
+        "details": "Create 'sneaker-images' bucket with public=false. Add RLS policy: INSERT/SELECT/UPDATE only for auth.uid() = owner. Create user folders dynamically via signed URLs.",
+        "testStrategy": "Test upload as authenticated user succeeds, unauthenticated fails, wrong user cannot access images.",
+        "priority": "high",
+        "dependencies": [
+          "2"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "complexity": 2,
+        "recommendedSubtasks": 0,
+        "expansionPrompt": "Single task: Create 'sneaker-images' bucket with public=false, implement storage RLS policies for INSERT/SELECT/UPDATE operations checking auth.uid() matches owner path segment. Test upload/download with authenticated vs unauthenticated users."
+      },
+      {
+        "id": "5",
+        "title": "Create MVVM folder structure and basic navigation",
+        "description": "Set up clean MVVM architecture with Views, ViewModels, Services folders (FR-0.6)",
+        "details": "Create folder structure: Views/, ViewModels/, Services/, Models/. Implement @Observable ViewModels with async/await. Basic NavigationStack from Splash -> Auth -> Home.",
+        "testStrategy": "Verify navigation flows between screens, no crashes, previews render correctly.",
+        "priority": "high",
+        "dependencies": [
+          "1"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "complexity": 5,
+        "recommendedSubtasks": 5,
+        "expansionPrompt": "Break down into: 1) Create folder structure (Views/, ViewModels/, Services/, Models/) in Xcode project navigator, 2) Remove SwiftData Item.swift model and ModelContainer setup from Auntentic_AIApp.swift, 3) Create base @Observable AppState/Router for navigation state management, 4) Implement SplashView, AuthView placeholder, and HomeView placeholder screens, 5) Set up NavigationStack with programmatic navigation path from Splash -> Auth -> Home flow, replacing current NavigationSplitView."
+      },
+      {
+        "id": "6",
+        "title": "Implement AuthenticationService with Apple Sign-In and Email",
+        "description": "Wrap Supabase Auth with Apple Sign-In (primary) and Email/Password using @Observable (FR-1.1, FR-1.2, FR-1.5)",
+        "details": "Create AuthenticationService with SupabaseClient. Implement signInWithApple(), signInWithEmail(), getSession(), signOut(). Use ASAuthorizationAppleIDProvider. Persist session with auto-refresh. Handle errors with os.Logger.",
+        "testStrategy": "Test Apple Sign-In flow completes, Email auth works, session persists across app restarts, sign-out clears data.",
+        "priority": "high",
+        "dependencies": [
+          "1",
+          "2"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "complexity": 7,
+        "recommendedSubtasks": 6,
+        "expansionPrompt": "Break down into: 1) Create AuthenticationService class with SupabaseClient initialization (project URL, anon key), 2) Implement signInWithApple() using ASAuthorizationAppleIDProvider and handling ASAuthorizationAppleIDCredential, 3) Implement signInWithEmail(email:password:) and signUp methods, 4) Create session management with getSession(), session persistence, and auto-refresh, 5) Implement signOut() with local data clearing, 6) Add error handling with os.Logger and user-facing error states."
+      },
+      {
+        "id": "7",
+        "title": "Build 4-step photo capture wizard with guidance overlays",
+        "description": "Create guided SwiftUI wizard for 4 specific sneaker angles with visual overlays (FR-2.1 to FR-2.7)",
+        "details": "Use TabView or NavigationStack for steps: 1.OuterSide, 2.InnerSide, 3.SizeTag, 4.BoxLabel. Each step: UIImagePickerController wrapped in UIViewControllerRepresentable, semi-transparent guidance overlay image, progress \"Step X of 4\". Use @State for capturedImages: [UIImage?].",
+        "testStrategy": "Capture photos at each step, verify guidance overlays visible, progress updates correctly.",
+        "priority": "high",
+        "dependencies": [
+          "5"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "complexity": 7,
+        "recommendedSubtasks": 6,
+        "expansionPrompt": "Break down into: 1) Create CaptureStep enum (outerSide, innerSide, sizeTag, boxLabel) with guidance image names and instructions, 2) Build UIImagePickerController wrapper as UIViewControllerRepresentable, 3) Create CaptureWizardView with TabView or PageView for step navigation, 4) Design and implement semi-transparent guidance overlay views for each step, 5) Add progress indicator ('Step X of 4') and step-specific instructions, 6) Create PhotoCaptureViewModel with @State for capturedImages: [UIImage?] and step management logic."
+      },
+      {
+        "id": "8",
+        "title": "Implement photo review screen with retake and gallery import",
+        "description": "Review screen showing 4-photo grid with retake individual photos or import from gallery (FR-2.8, FR-2.9)",
+        "details": "Grid view of 4 images with delete/retake buttons per photo. Full gallery picker via PHPickerViewController for iOS 14+. Compress images to <1MB using JPEG 0.8 quality before storage.",
+        "testStrategy": "Take 4 photos, retake one, import from gallery, verify compression reduces file size appropriately.",
+        "priority": "high",
+        "dependencies": [
+          "7"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "complexity": 5,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Break down into: 1) Create PhotoReviewView with 2x2 grid layout displaying 4 captured images, 2) Add per-photo retake/delete buttons that navigate back to specific capture step, 3) Implement PHPickerViewController wrapper for gallery import (iOS 14+ PHPicker), 4) Add image compression utility (JPEG 0.8 quality, max 1MB) applied before storage/upload."
+      },
+      {
+        "id": "9",
+        "title": "Implement image upload service to Supabase Storage",
+        "description": "Upload 4 compressed images to user-specific Storage bucket with progress (FR-3.1 to FR-3.4)",
+        "details": "Create ImageUploadService. Use supabase.storage.from('sneaker-images').upload(`user_${userId}/check_${uuid}/img_${i}.jpg`, compressedData). Generate signed URLs with createSignedUrl(). Show ProgressView with upload bytes.",
+        "testStrategy": "Upload 4 images, verify progress shows 0-100%, files appear in Storage dashboard, signed URLs accessible.",
+        "priority": "high",
+        "dependencies": [
+          "6",
+          "8"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "complexity": 6,
+        "recommendedSubtasks": 5,
+        "expansionPrompt": "Break down into: 1) Create ImageUploadService with reference to SupabaseClient, 2) Implement upload method with user-specific path structure (user_{userId}/check_{uuid}/img_{i}.jpg), 3) Add upload progress tracking using Supabase upload delegate/async bytes, 4) Implement createSignedUrl() for generating secure image access URLs, 5) Create UploadProgressView with ProgressView showing 0-100% per image and overall progress."
+      },
+      {
+        "id": "10",
+        "title": "Deploy Supabase Edge Function authenticate-sneaker with OpenAI GPT-4o",
+        "description": "Deploy exact Edge Function code proxying to OpenAI Vision API (FR-4.1 to FR-4.4)",
+        "details": "Deploy provided TypeScript code to supabase functions deploy authenticate-sneaker. Set OPENAI_API_KEY in Edge Function secrets. Test with sample image URLs returns JSON {verdict, confidence, observations}.",
+        "testStrategy": "Invoke Edge Function via curl/Postman with test image URLs, verify GPT-4o response parsed correctly, handles errors gracefully.",
+        "priority": "high",
+        "dependencies": [
+          "2",
+          "4"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "complexity": 6,
+        "recommendedSubtasks": 5,
+        "expansionPrompt": "Break down into: 1) Create Edge Function boilerplate with Deno/TypeScript setup (supabase/functions/authenticate-sneaker/index.ts), 2) Implement request handler receiving imageUrls array and validating input, 3) Construct OpenAI Vision API request with GPT-4o model and sneaker authentication prompt, 4) Parse OpenAI response and transform to structured output {verdict, confidence, observations, additionalPhotosNeeded?}, 5) Add error handling for API failures, rate limits, and timeout scenarios. Deploy with 'supabase functions deploy'."
+      },
+      {
+        "id": "11",
+        "title": "Integrate AI analysis flow with loading state",
+        "description": "Call Edge Function after upload, show loading screen during <60s analysis (FR-4.6, FR-4.7)",
+        "details": "After upload success, POST {imageUrls} to supabase.functions.invoke('authenticate-sneaker'). Parse JSON response. Show full-screen \"Analyzing your sneaker...\" with spinner. Timeout after 60s with retry.",
+        "testStrategy": "Complete photo flow to analysis, verify Edge Function called, loading shows, result received within 60s.",
+        "priority": "high",
+        "dependencies": [
+          "9",
+          "10"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "complexity": 5,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Break down into: 1) Create AnalysisService with supabase.functions.invoke('authenticate-sneaker') call, 2) Build AnalyzingView with full-screen spinner and 'Analyzing your sneaker...' text, 3) Implement AnalysisViewModel managing loading state, API call, and 60s timeout, 4) Add retry mechanism on failure with user-facing retry button and error display."
+      },
+      {
+        "id": "12",
+        "title": "Create results screen with verdict, confidence, colors, disclaimer",
+        "description": "Display AI result with color-coded verdict, confidence %, mandatory disclaimer, observations (FR-5.1 to FR-5.6)",
+        "details": "Verdict text: \"Likely Authentic\"/\"Likely Fake\"/\"Inconclusive\". Colors: green #22C55E, red #EF4444, amber #F59E0B. Large confidence Circle(). Fixed disclaimer Text always visible. Expandable observations list. \"New Check\" button.",
+        "testStrategy": "Test all 3 verdicts display correctly with colors, disclaimer always shows, observations expand/collapse.",
+        "priority": "high",
+        "dependencies": [
+          "11"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "complexity": 4,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Break down into: 1) Create ResultView displaying verdict text ('Likely Authentic'/'Likely Fake'/'Inconclusive') with appropriate colors (#22C55E green, #EF4444 red, #F59E0B amber), 2) Build confidence visualization using circular progress (Circle stroke) showing 0-100%, 3) Add always-visible disclaimer text at bottom of screen, 4) Implement expandable/collapsible observations list and 'New Check' navigation button."
+      },
+      {
+        "id": "13",
+        "title": "Save authentication results to Supabase database",
+        "description": "Store result in authentications table after display (FR-5.7)",
+        "details": "After result screen loads, insert to supabase.from('authentications').insert({user_id, verdict, confidence, observations, image_urls}). Handle RLS automatically via SDK.",
+        "testStrategy": "Verify record appears in Supabase dashboard for correct user_id, all fields populated correctly.",
+        "priority": "medium",
+        "dependencies": [
+          "3",
+          "12"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "complexity": 2,
+        "recommendedSubtasks": 0,
+        "expansionPrompt": "Single task: After ResultView appears, call supabase.from('authentications').insert() with user_id (from session), verdict, confidence, observations (JSONB), and image_urls (array). RLS policies handle authorization automatically. Add error handling for insert failure."
+      },
+      {
+        "id": "14",
+        "title": "Integrate StoreKit 2 for $9.99/month subscription",
+        "description": "Implement StoreKit 2 IAP with monthly subscription product (FR-6.1, FR-6.2)",
+        "details": "Create StoreKit Configuration File with product ID 'com.auntentic.monthly'. Use Product.products(for: [\"com.auntentic.monthly\"]). Implement purchase flow with VerificationResult. Listen to transaction updates via Transaction.updates.",
+        "testStrategy": "Test StoreKit testing in sandbox, purchase completes, transaction verifies locally.",
+        "priority": "high",
+        "dependencies": [
+          "5"
+        ],
+        "status": "pending",
+        "subtasks": [],
+        "complexity": 7,
+        "recommendedSubtasks": 6,
+        "expansionPrompt": "Break down into: 1) Create StoreKit Configuration File (.storekit) with 'com.auntentic.monthly' product at $9.99/month, 2) Build StoreKitManager/SubscriptionService using Product.products(for:) to fetch available products, 3) Implement purchase flow with product.purchase() and handle VerificationResult, 4) Set up Transaction.updates listener for real-time transaction status changes, 5) Add entitlement checking logic to verify active subscription, 6) Configure Xcode for StoreKit testing in sandbox environment."
+      },
+      {
+        "id": "15",
+        "title": "Implement free check tracking and subscription verification",
+        "description": "Check free_checks table, verify subscription status before allowing checks (FR-6.3, FR-6.6)",
+        "details": "Query supabase.from('free_checks').select(). Single user row. If checks_used >=1 && !subscriber, show paywall. Update checks_used++ on free check. Verify active subscription via StoreKit + subscriptions table.",
+        "testStrategy": "Test first check allowed, second check shows paywall for non-subscriber, subscriber bypasses limit.",
+        "priority": "high",
+        "dependencies": [
+          "3",
+          "6",
+          "13",
+          "14"
+        ],
+        "status": "pending",
+        "subtasks": [],
+        "complexity": 6,
+        "recommendedSubtasks": 5,
+        "expansionPrompt": "Break down into: 1) Create CheckEligibilityService combining StoreKit entitlement check with Supabase free_checks query, 2) Implement getFreeChecksRemaining() querying free_checks table for current user, 3) Add incrementFreeCheck() to update checks_used counter after authentication, 4) Build canPerformCheck() logic: if checks_used >= 1 AND !hasActiveSubscription, return false (show paywall), 5) Integrate eligibility check into authentication flow before starting photo capture."
+      },
+      {
+        "id": "16",
+        "title": "Build paywall screen with StoreKit purchase and restore",
+        "description": "Conversion-focused paywall after free check with purchase/restore buttons (FR-6.4, FR-6.5, FR-6.8)",
+        "details": "SwiftUI screen showing \"$9.99/month unlimited checks\" value prop. Large purchase Button with StoreKit. Restore Purchases button calling AppStore.sync(). Handle success -> dismiss paywall.",
+        "testStrategy": "Navigate to paywall after free check, test purchase flow, restore purchases works in sandbox.",
+        "priority": "high",
+        "dependencies": [
+          "14",
+          "15"
+        ],
+        "status": "pending",
+        "subtasks": [],
+        "complexity": 5,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Break down into: 1) Design PaywallView with value proposition text ('$9.99/month unlimited checks'), benefits list, and premium styling, 2) Add prominent purchase button triggering StoreKitManager.purchase(), 3) Implement 'Restore Purchases' button calling AppStore.sync() and checking Transaction.currentEntitlements, 4) Handle purchase success (dismiss paywall, update UI) and failure states (show error, allow retry)."
+      },
+      {
+        "id": "17",
+        "title": "Sync subscription status to Supabase database",
+        "description": "Update subscriptions table on purchase/expiration with StoreKit transaction data (FR-6.7, FR-6.9)",
+        "details": "On successful purchase, insert/update supabase.from('subscriptions').upsert({user_id, product_id: \"com.auntentic.monthly\", status: \"active\", original_transaction_id, expires_at}). Listen to Transaction.updates for expiration.",
+        "testStrategy": "Purchase subscription, verify record in subscriptions table, simulate expiration updates status.",
+        "priority": "medium",
+        "dependencies": [
+          "3",
+          "16"
+        ],
+        "status": "pending",
+        "subtasks": [],
+        "complexity": 5,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Break down into: 1) Create SubscriptionSyncService that listens to Transaction.updates stream, 2) On new/renewed transaction, upsert to Supabase subscriptions table with product_id, status='active', original_transaction_id, expires_at, 3) Handle subscription expiration by updating status to 'expired', 4) Add app launch sync to ensure database reflects current StoreKit state (handle offline purchases)."
+      },
+      {
+        "id": "18",
+        "title": "Implement comprehensive error handling and network resilience",
+        "description": "Handle no internet, API timeout, poor images, Supabase errors with retries (FR-7.1 to FR-7.6)",
+        "details": "Use NWPathMonitor for connectivity. Task { try await withThrowingTaskGroup } with retries. Poor image quality: check resolution/lighting, prompt retake. StoreKit errors: present Apple error sheet. os.Logger throughout.",
+        "testStrategy": "Test offline mode shows error, API timeout retries, poor image prompts retake, all errors logged.",
+        "priority": "medium",
+        "dependencies": [
+          "11",
+          "15"
+        ],
+        "status": "pending",
+        "subtasks": [],
+        "complexity": 6,
+        "recommendedSubtasks": 5,
+        "expansionPrompt": "Break down into: 1) Create NetworkMonitor using NWPathMonitor to track connectivity state, 2) Implement global error handling service with os.Logger integration, 3) Add retry logic using withThrowingTaskGroup for API calls (exponential backoff), 4) Create image quality validation checking resolution/lighting before upload with retake prompts, 5) Build reusable error UI components (offline banner, retry buttons, error alerts) for consistent UX across screens."
+      }
+    ],
+    "metadata": {
+      "version": "1.1.0",
+      "lastModified": "2026-01-01T12:00:00.000Z",
+      "taskCount": 18,
+      "completedCount": 13,
+      "tags": [
+        "master"
+      ]
+    }
+  }
+}

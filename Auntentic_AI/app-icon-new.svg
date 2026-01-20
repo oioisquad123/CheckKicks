@@ -1,0 +1,180 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background -->
+    <radialGradient id="bgGlow" cx="50%" cy="35%" r="80%">
+      <stop offset="0%" stop-color="#101A2C"/>
+      <stop offset="55%" stop-color="#0A1020"/>
+      <stop offset="100%" stop-color="#050813"/>
+    </radialGradient>
+
+    <!-- Gold gradients -->
+    <linearGradient id="goldOuter" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE6A8"/>
+      <stop offset="25%" stop-color="#F7C95F"/>
+      <stop offset="55%" stop-color="#DFA63B"/>
+      <stop offset="80%" stop-color="#B87B20"/>
+      <stop offset="100%" stop-color="#FFD889"/>
+    </linearGradient>
+
+    <linearGradient id="goldInner" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C27C1E"/>
+      <stop offset="30%" stop-color="#F3C85F"/>
+      <stop offset="65%" stop-color="#D29A36"/>
+      <stop offset="100%" stop-color="#8E5A16"/>
+    </linearGradient>
+
+    <!-- Shield face -->
+    <linearGradient id="shieldFace" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2A1E12"/>
+      <stop offset="48%" stop-color="#110C08"/>
+      <stop offset="100%" stop-color="#070606"/>
+    </linearGradient>
+
+    <!-- Subtle tech grid -->
+    <pattern id="microGrid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#FFD889" stroke-opacity="0.08" stroke-width="1"/>
+      <path d="M16 0V32M0 16H32" fill="none" stroke="#FFD889" stroke-opacity="0.05" stroke-width="1"/>
+    </pattern>
+
+    <!-- Soft glow -->
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 0.35 0" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Specular highlight -->
+    <linearGradient id="highlight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.35"/>
+      <stop offset="35%" stop-color="#FFFFFF" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Check gradient -->
+    <linearGradient id="checkGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE8B0"/>
+      <stop offset="45%" stop-color="#F0C35A"/>
+      <stop offset="80%" stop-color="#C78425"/>
+      <stop offset="100%" stop-color="#FFD889"/>
+    </linearGradient>
+  </defs>
+
+  <!-- FULL-BLEED BACKGROUND -->
+  <rect x="0" y="0" width="1024" height="1024" fill="url(#bgGlow)"/>
+
+  <!-- ICON MARK -->
+  <g id="jack-kick-mark" filter="url(#softGlow)">
+
+    <!-- SHIELD OUTER (slim + taller) -->
+    <path id="shieldOuter"
+      d="M512 170
+         C618 170 706 214 768 270
+         C806 305 826 355 830 420
+         C838 560 788 692 688 792
+         C625 855 558 892 512 914
+         C466 892 399 855 336 792
+         C236 692 186 560 194 420
+         C198 355 218 305 256 270
+         C318 214 406 170 512 170 Z"
+      fill="url(#goldOuter)"/>
+
+    <!-- SHIELD INNER BORDER (this curve helps hint a "C") -->
+    <path id="shieldInnerBorder"
+      d="M512 206
+         C606 206 682 246 736 296
+         C767 325 784 368 788 424
+         C795 546 750 660 662 748
+         C604 806 545 840 512 856
+         C479 840 420 806 362 748
+         C274 660 229 546 236 424
+         C240 368 257 325 288 296
+         C342 246 418 206 512 206 Z"
+      fill="none" stroke="url(#goldInner)" stroke-width="16" stroke-linejoin="round"/>
+
+    <!-- SHIELD FACE -->
+    <path id="shieldFacePath"
+      d="M512 220
+         C598 220 668 257 718 304
+         C746 330 761 370 764 424
+         C771 536 730 644 650 724
+         C596 778 541 810 512 824
+         C483 810 428 778 374 724
+         C294 644 253 536 260 424
+         C263 370 278 330 306 304
+         C356 257 426 220 512 220 Z"
+      fill="url(#shieldFace)"/>
+
+    <!-- TECH MICRO GRID (subtle high-tech) -->
+    <path
+      d="M512 220
+         C598 220 668 257 718 304
+         C746 330 761 370 764 424
+         C771 536 730 644 650 724
+         C596 778 541 810 512 824
+         C483 810 428 778 374 724
+         C294 644 253 536 260 424
+         C263 370 278 330 306 304
+         C356 257 426 220 512 220 Z"
+      fill="url(#microGrid)" opacity="0.75"/>
+
+    <!-- DIAGONAL ANALYSIS SPLIT (high-tech vibe) -->
+    <path
+      d="M300 320 L730 240 L730 720 L300 800 Z"
+      fill="#FFFFFF" opacity="0.045"/>
+
+    <!-- LEFT-SIDE HIGHLIGHT to reinforce the "C" curve -->
+    <path
+      d="M320 300
+         C370 255 435 225 512 220
+         L512 824
+         C480 810 430 780 382 732
+         C300 650 260 540 260 424
+         C262 370 276 330 320 300 Z"
+      fill="url(#highlight)" opacity="0.55"/>
+
+    <!-- CUSTOM CHECKMARK (stylized to hint a "K") -->
+    <g id="check" transform="translate(0,0)">
+      <!-- main check -->
+      <path
+        d="M420 540
+           C410 530 410 515 422 505
+           L452 480
+           C462 472 475 474 484 484
+           L515 520
+           L640 400
+           C650 390 666 390 676 400
+           L706 430
+           C716 440 716 456 706 466
+           L540 632
+           C530 642 515 642 505 632
+           L420 540 Z"
+        fill="url(#checkGold)"/>
+
+      <!-- small kicker stroke (creates K-like geometry, subtle) -->
+      <path
+        d="M560 620
+           L615 620
+           C628 620 636 628 636 640
+           L636 660
+           C636 672 628 680 615 680
+           L550 680
+           C538 680 532 672 532 660
+           L532 648
+           C532 638 540 630 550 626
+           L560 620 Z"
+        fill="url(#checkGold)" opacity="0.95"/>
+    </g>
+
+    <!-- TOP EDGE SPARK (luxury) -->
+    <circle cx="740" cy="330" r="5" fill="#FFD889" opacity="0.55"/>
+    <circle cx="730" cy="325" r="2" fill="#FFFFFF" opacity="0.6"/>
+
+  </g>
+</svg>

@@ -1,0 +1,130 @@
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <!-- CheckKicks App Icon - "The Verified Kick" -->
+  <!-- Premium sneaker authentication app icon -->
+
+  <defs>
+    <!-- Main background gradient - Deep Navy to Charcoal -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0F172A"/>
+      <stop offset="50%" style="stop-color:#151E2E"/>
+      <stop offset="100%" style="stop-color:#1E293B"/>
+    </linearGradient>
+
+    <!-- Gold accent gradient for checkmark -->
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E5C547"/>
+      <stop offset="50%" style="stop-color:#D4AF37"/>
+      <stop offset="100%" style="stop-color:#B8962E"/>
+    </linearGradient>
+
+    <!-- White sneaker gradient -->
+    <linearGradient id="sneakerGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF"/>
+      <stop offset="100%" style="stop-color:#E2E8F0"/>
+    </linearGradient>
+
+    <!-- Subtle inner glow -->
+    <radialGradient id="innerGlow" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" style="stop-color:#2D3748;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#0F172A;stop-opacity:0"/>
+    </radialGradient>
+
+    <!-- Shadow filter for sneaker -->
+    <filter id="sneakerShadow" x="-10%" y="-10%" width="120%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+
+    <!-- Glow for gold checkmark -->
+    <filter id="goldGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="4" stdDeviation="12" flood-color="#D4AF37" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1024" height="1024" fill="url(#bgGradient)"/>
+
+  <!-- Subtle inner glow overlay -->
+  <rect width="1024" height="1024" fill="url(#innerGlow)"/>
+
+  <!-- Stylized Sneaker Silhouette - Side Profile -->
+  <g transform="translate(120, 280)" filter="url(#sneakerShadow)">
+    <!-- Main shoe body -->
+    <path d="
+      M 80 320
+      C 60 300 50 260 60 220
+      C 70 180 100 140 160 120
+      L 280 100
+      C 340 95 400 100 450 110
+      L 600 150
+      C 680 170 740 200 760 250
+      L 770 320
+      L 760 360
+      L 80 360
+      L 80 320
+      Z
+    " fill="url(#sneakerGradient)"/>
+
+    <!-- Shoe sole -->
+    <path d="
+      M 60 360
+      L 780 360
+      L 790 390
+      C 790 420 770 440 740 440
+      L 100 440
+      C 70 440 50 420 50 390
+      L 60 360
+      Z
+    " fill="#CBD5E1"/>
+
+    <!-- Sole detail lines -->
+    <line x1="150" y1="400" x2="700" y2="400" stroke="#94A3B8" stroke-width="3"/>
+
+    <!-- Shoe tongue -->
+    <path d="
+      M 320 100
+      C 340 60 380 30 420 20
+      C 460 10 500 20 520 40
+      L 540 80
+      C 520 95 480 100 440 100
+      L 320 100
+      Z
+    " fill="url(#sneakerGradient)"/>
+
+    <!-- Lace area detail -->
+    <ellipse cx="420" cy="150" rx="100" ry="40" fill="#F1F5F9" opacity="0.5"/>
+
+    <!-- Lace holes -->
+    <circle cx="350" cy="140" r="10" fill="#0F172A"/>
+    <circle cx="390" cy="130" r="10" fill="#0F172A"/>
+    <circle cx="430" cy="125" r="10" fill="#0F172A"/>
+    <circle cx="470" cy="130" r="10" fill="#0F172A"/>
+    <circle cx="510" cy="140" r="10" fill="#0F172A"/>
+
+    <!-- Toe cap detail -->
+    <path d="
+      M 80 320
+      C 80 290 100 260 140 250
+      L 200 240
+      L 200 320
+      L 80 320
+      Z
+    " fill="#E2E8F0" opacity="0.6"/>
+  </g>
+
+  <!-- Large Verification Checkmark Badge -->
+  <g transform="translate(580, 520)" filter="url(#goldGlow)">
+    <!-- Checkmark circle background -->
+    <circle cx="120" cy="120" r="140" fill="#0F172A" stroke="url(#goldGradient)" stroke-width="10"/>
+
+    <!-- Inner circle -->
+    <circle cx="120" cy="120" r="110" fill="url(#goldGradient)" opacity="0.15"/>
+
+    <!-- Bold Checkmark symbol -->
+    <path d="
+      M 55 120
+      L 100 170
+      L 190 70
+    " fill="none" stroke="url(#goldGradient)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+</svg>

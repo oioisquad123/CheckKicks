@@ -1,0 +1,115 @@
+# Xcode
+build/
+DerivedData/
+*.xcuserstate
+*.xccheckout
+*.xcscmblueprint
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Xcode User Data
+xcuserdata/
+*.xcuserdata/
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Packages/
+Package.resolved
+
+# CocoaPods (if used later)
+Pods/
+Podfile.lock
+
+# Carthage (if used later)
+Carthage/Build/
+Carthage/Checkouts/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# IDE
+*.swp
+*.swo
+*~
+.idea/
+*.iml
+
+# Environment & Secrets
+.env
+.env.*
+*.xcconfig
+!*.xcconfig.template
+Secrets/
+secrets/
+Config.plist
+!Config.plist.template
+
+# Supabase local
+.supabase/
+
+# TaskMaster (tracking tasks in git for project visibility)
+
+# App specific
+*.mobileprovision
+*.p12
+*.p8
+
+# Archives
+*.zip
+*.tar.gz
+*.rar
+
+# Logs
+*.log
+logs/
+
+# Test outputs
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# Code coverage
+*.gcno
+*.gcda
+*.gcov
+coverage/
+
+
+logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dev-debug.log
+# Dependency directories
+node_modules/
+# Environment variables
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+# OS specific
+
+# Task files
+# tasks.json
+# tasks/ 
+
+# Local IDE/Editor configs
+.cursor/
+.claude/skills/
+
+# Example files (large images)
+Example_file/New/

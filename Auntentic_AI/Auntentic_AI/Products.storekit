@@ -1,0 +1,99 @@
+{
+  "appPolicies" : {
+    "eula" : "",
+    "policies" : [
+      {
+        "locale" : "en_US",
+        "policyText" : "",
+        "policyURL" : ""
+      }
+    ]
+  },
+  "identifier" : "5BE37837",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "6.99",
+      "familyShareable" : false,
+      "internalID" : "C8A1B2D3-1001-4A5B-8C9D-E0F1A2B3C4D1",
+      "localizations" : [
+        {
+          "description" : "10 credits for sneaker authentication",
+          "displayName" : "10 Credits",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.checkkicks.credits.basic",
+      "referenceName" : "Basic Credits (10)",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "14.99",
+      "familyShareable" : false,
+      "internalID" : "C8A1B2D3-1002-4A5B-8C9D-E0F1A2B3C4D2",
+      "localizations" : [
+        {
+          "description" : "25 credits for sneaker authentication - Best Value!",
+          "displayName" : "25 Credits",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.checkkicks.credits.standard",
+      "referenceName" : "Standard Credits (25)",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "29.99",
+      "familyShareable" : false,
+      "internalID" : "C8A1B2D3-1003-4A5B-8C9D-E0F1A2B3C4D3",
+      "localizations" : [
+        {
+          "description" : "60 credits for sneaker authentication",
+          "displayName" : "60 Credits",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.checkkicks.credits.pro",
+      "referenceName" : "Pro Credits (60)",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "59.99",
+      "familyShareable" : false,
+      "internalID" : "C8A1B2D3-1004-4A5B-8C9D-E0F1A2B3C4D4",
+      "localizations" : [
+        {
+          "description" : "150 credits for sneaker authentication - Best for business",
+          "displayName" : "150 Credits",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.checkkicks.credits.business",
+      "referenceName" : "Business Credits (150)",
+      "type" : "Consumable"
+    }
+  ],
+  "settings" : {
+    "_askToBuyEnabled" : false,
+    "_billingGracePeriodEnabled" : false,
+    "_billingIssuesEnabled" : false,
+    "_disableDialogs" : false,
+    "_failTransactionsEnabled" : false,
+    "_locale" : "en_US",
+    "_renewalBillingIssuesEnabled" : false,
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+
+    ],
+    "_timeRate" : 0
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}

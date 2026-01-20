@@ -1,0 +1,104 @@
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <!-- Full-bleed dark navy background - NO rounded corners, NO border -->
+  <rect width="1024" height="1024" fill="#0a0e1a"/>
+
+  <!-- Subtle gradient overlay for depth -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#121829;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0a0e1a;stop-opacity:1"/>
+    </linearGradient>
+
+    <!-- Gold gradient for shield -->
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1"/>
+      <stop offset="50%" style="stop-color:#daa520;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#b8860b;stop-opacity:1"/>
+    </linearGradient>
+
+    <!-- Gold highlight gradient -->
+    <linearGradient id="goldHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffe566;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#daa520;stop-opacity:1"/>
+    </linearGradient>
+
+    <!-- Shield inner gradient (dark) -->
+    <linearGradient id="shieldInner" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1f2e;stop-opacity:1"/>
+      <stop offset="50%" style="stop-color:#0d1117;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#1a1f2e;stop-opacity:1"/>
+    </linearGradient>
+
+    <!-- Glow filter -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="15" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Subtle circuit pattern -->
+    <pattern id="circuit" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="50" x2="100" y2="50" stroke="#d4af37" stroke-width="0.5" opacity="0.1"/>
+      <line x1="50" y1="0" x2="50" y2="100" stroke="#d4af37" stroke-width="0.5" opacity="0.1"/>
+      <circle cx="50" cy="50" r="2" fill="#d4af37" opacity="0.15"/>
+    </pattern>
+  </defs>
+
+  <!-- Background with gradient -->
+  <rect width="1024" height="1024" fill="url(#bgGradient)"/>
+
+  <!-- Circuit pattern overlay -->
+  <rect width="1024" height="1024" fill="url(#circuit)" opacity="0.3"/>
+
+  <!-- Ambient glow behind shield -->
+  <ellipse cx="512" cy="520" rx="280" ry="300" fill="#d4af37" opacity="0.08" filter="url(#glow)"/>
+
+  <!-- Shield group - centered and LARGER to fill more space -->
+  <g transform="translate(512, 480)">
+    <!-- Shield outer (gold border) - ENLARGED -->
+    <path d="M0,-340
+             C180,-340 280,-280 280,-180
+             C280,80 160,260 0,340
+             C-160,260 -280,80 -280,-180
+             C-280,-280 -180,-340 0,-340Z"
+          fill="url(#goldGradient)"
+          filter="url(#glow)"/>
+
+    <!-- Shield inner (dark fill) -->
+    <path d="M0,-300
+             C160,-300 248,-248 248,-160
+             C248,60 140,225 0,300
+             C-140,225 -248,60 -248,-160
+             C-248,-248 -160,-300 0,-300Z"
+          fill="url(#shieldInner)"/>
+
+    <!-- Circuit lines inside shield -->
+    <g opacity="0.2">
+      <line x1="-150" y1="-100" x2="-80" y2="-100" stroke="#d4af37" stroke-width="1"/>
+      <line x1="-80" y1="-100" x2="-80" y2="-40" stroke="#d4af37" stroke-width="1"/>
+      <line x1="-150" y1="50" x2="-100" y2="50" stroke="#d4af37" stroke-width="1"/>
+      <line x1="-100" y1="50" x2="-100" y2="120" stroke="#d4af37" stroke-width="1"/>
+      <circle cx="-80" cy="-100" r="3" fill="#d4af37"/>
+      <circle cx="-100" cy="50" r="3" fill="#d4af37"/>
+    </g>
+
+    <!-- Checkmark - LARGER and bolder -->
+    <path d="M-100,20 L-20,100 L140,-100"
+          fill="none"
+          stroke="url(#goldHighlight)"
+          stroke-width="55"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          filter="url(#glow)"/>
+
+    <!-- Highlight sparkles -->
+    <circle cx="-200" cy="-180" r="4" fill="#ffe566" opacity="0.8"/>
+    <circle cx="180" cy="-80" r="3" fill="#ffe566" opacity="0.6"/>
+    <circle cx="120" cy="140" r="2" fill="#ffe566" opacity="0.5"/>
+  </g>
+
+  <!-- Reflection/shine at bottom -->
+  <ellipse cx="512" cy="880" rx="200" ry="30" fill="#d4af37" opacity="0.1"/>
+</svg>

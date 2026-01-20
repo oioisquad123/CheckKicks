@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDisplayName</key>
+	<string>CheckKicks</string>
+	<key>GIDClientID</key>
+	<string>540926192862-t42tgjn5r8ncm7hmkrt2bsgdphq0fat7.apps.googleusercontent.com</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.checkkicks.app</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>checkkicks</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>Google Sign-In</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.540926192862-t42tgjn5r8ncm7hmkrt2bsgdphq0fat7</string>
+			</array>
+		</dict>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>CheckKicks needs access to your camera to photograph sneakers for authentication.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>CheckKicks needs access to your photo library to select sneaker images for authentication.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>CheckKicks needs permission to save authentication results to your photo library.</string>
+</dict>
+</plist>
